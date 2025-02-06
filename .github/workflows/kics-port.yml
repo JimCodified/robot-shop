@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - 'main'
-env:
-  KICS_PATH: myResults/
 
 jobs:
   test:
@@ -33,7 +31,7 @@ jobs:
 
       - name: Port parse
         run: |
-          python port-kics/port-kics.py > entities.json
+          python port-kics/port-kics.py myResults/results.json > entities.json
           cat entities.json
           entities_string=$(cat entities.json | jq -c .)
           echo "entities=$entities_string" >> $GITHUB_ENV
