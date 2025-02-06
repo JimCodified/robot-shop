@@ -33,13 +33,12 @@ jobs:
       - name: Port parse
         run: |
           python port-kics/port-kics.py myResults/results.json > entities.json
-          cat entities.json
           entities_string=$(cat entities.json | jq -c .)
           echo "entities=$entities_string" >> $GITHUB_ENV
 
-      - name: Debug Extracted Entities
-        run: |
-          echo "Entities JSON: ${{ env.entities }}"
+#      - name: Debug Extracted Entities
+#        run: |
+#          echo "Entities JSON: ${{ env.entities }}"
 
       - name: Bulk Upsert to Port
         uses: port-labs/port-github-action@v1
