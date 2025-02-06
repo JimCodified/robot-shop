@@ -2,7 +2,7 @@ name: kics-scan-to-port
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
   test:
