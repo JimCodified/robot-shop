@@ -34,6 +34,7 @@ jobs:
       - name: Port parse
         run: |
           python port-kics/port-kics.py > entities.json
+          cat entities.json
           entities_string=$(cat entities.json | jq -c .)
           echo "entities=$entities_string" >> $GITHUB_ENV
 
