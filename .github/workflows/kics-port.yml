@@ -5,7 +5,7 @@ on:
       - 'main'
 env:
   kics_path: myResults/
-  port_path: port-kics/
+  port_path: port-kics
 
 jobs:
   test:
@@ -26,7 +26,7 @@ jobs:
         with:
           repository: jimcodified/port-kics
           path: $port_path
-          
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
