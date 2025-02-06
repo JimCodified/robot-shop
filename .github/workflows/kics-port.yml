@@ -3,18 +3,50 @@ on:
   push:
     branches:
       - 'main'
+env:
+  kics_path: myResults/
+  port_path: port-kics/
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: run kics Scan
         uses: checkmarx/kics-github-action@v2.1.5
         with:
           path: 'K8s/helm'
           ignore_on_exit: results
-          output_path: myResults/
-      - name: display kics results
+          output_path: $kics_path
+#      - name: display kics results
+#        run: |
+#          cat myResults/results.json
+      - name: Checkout tools repo
+        uses: actions/checkout@v4
+        with:
+          repository: jimcodified/port-kics
+          path: $port_path
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Port parse
         run: |
-          cat myResults/results.json
+          python $port_path/port-kics.py > entities.json
+          entities_string=$(cat entities.json | jq -c .)
+          echo "entities=$entities_string" >> $GITHUB_ENV
+
+      - name: Debug Extracted Entities
+        run: |
+          echo "Entities JSON: ${{ env.entities }}"
+
+      - name: Bulk Upsert to Port
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: BULK_UPSERT
+          entities: ${{ env.entities }}
