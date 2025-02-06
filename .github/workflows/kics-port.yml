@@ -16,7 +16,7 @@ jobs:
         with:
           path: 'K8s/helm'
           ignore_on_exit: results
-          output_path: myResults/
+          output_path: myResults/results.json
 #      - name: display kics results
 #        run: |
 #          cat myResults/results.json
