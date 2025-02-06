@@ -4,7 +4,7 @@ on:
     branches:
       - 'main'
 env:
-  kics_path: myResults/
+  KICS_PATH: myResults/
 
 jobs:
   test:
