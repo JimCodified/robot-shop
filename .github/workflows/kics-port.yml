@@ -41,7 +41,7 @@ jobs:
 #          echo "Entities JSON: ${{ env.entities }}"
 
       - name: Bulk Upsert to Port
-        uses: port-labs/port-github-action@v1
+        uses: port-labs/port-github-action@v1.7.3
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
