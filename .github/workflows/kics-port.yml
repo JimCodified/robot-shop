@@ -17,7 +17,7 @@ jobs:
           ignore_on_exit: results
           output_path: myResults/
 #      - name: display kics results
-#        run: |
+#        run: | 
 #          cat myResults/results.json
       - name: Checkout tools repo
         uses: actions/checkout@v4
