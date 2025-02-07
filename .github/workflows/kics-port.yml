@@ -32,6 +32,9 @@ jobs:
 
       - name: Port parse
         id: port-parse
+        env:
+          PORT_CLIENT_ID: ${{ secrets.PORT_CLIENT_ID }}
+          PORT_CLIENT_SECRET: ${{ secrets.PORT_CLIENT_SECRET }}
         run: |
           python -m pip install requests
           python port-kics/port-kics.py myResults/results.json
