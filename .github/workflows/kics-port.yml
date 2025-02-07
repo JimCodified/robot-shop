@@ -33,17 +33,17 @@ jobs:
       - name: Port parse
         id: port-parse
         run: |
-          python port-kics/port-kics.py myResults/results.json > entities.json
-          echo "json_data=$(cat entities.json | jq -c .)" >> $GITHUB_OUTPUT
+          python port-kics/port-kics.py myResults/results.json
+#          echo "json_data=$(cat entities.json | jq -c .)" >> $GITHUB_OUTPUT
 #      - name: Debug Extracted Entities
 #        run: |
-#          echo "Entities JSON: ${{ toJSON(steps.port-parse.outputs.json_data) }}"
+#          echo "Entities JSON: ${{ fromJSON(steps.port-parse.outputs.json_data) }}"
 
-      - name: Bulk Upsert to Port
-        uses: port-labs/port-github-action@v1.7.3
-        with:
-          clientId: ${{ secrets.PORT_CLIENT_ID }}
-          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
-          baseUrl: https://api.getport.io
-          operation: BULK_UPSERT
-          entities: ${{ toJSON(steps.port-parse.outputs.json_data) }}
+#     - name: Bulk Upsert to Port
+#       uses: port-labs/port-github-action@v1.7.3
+#       with:
+#         clientId: ${{ secrets.PORT_CLIENT_ID }}
+#         clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+#         baseUrl: https://api.getport.io
+#         operation: BULK_UPSERT
+#         entities: ${{ fromJSON(steps.port-parse.outputs.json_data) }}
