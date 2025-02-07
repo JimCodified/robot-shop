@@ -37,7 +37,7 @@ jobs:
           echo "json_data=$(cat entities.json | jq -c .)" >> $GITHUB_OUTPUT
       - name: Debug Extracted Entities
         run: |
-          echo "Entities JSON: ${{ fromJSON(steps.port-parse.outputs.json_data) }}"
+          echo "Entities JSON: ${{ toJSON(steps.port-parse.outputs.json_data) }}"
 
       - name: Bulk Upsert to Port
         uses: port-labs/port-github-action@v1.7.3
