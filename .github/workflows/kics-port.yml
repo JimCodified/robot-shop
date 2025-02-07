@@ -31,9 +31,10 @@ jobs:
           python-version: "3.x"
 
       - name: Port parse
+        id: port-parse
         run: |
-          python port-kics/port-kics.py myResults/results.json | jq -c . > entities.json
-
+          python port-kics/port-kics.py myResults/results.json > entities.json
+          echo "json_data=$(cat entities.json | jq -c .)" >> $GITHUB_OUTPUT
 #      - name: Debug Extracted Entities
 #        run: |
 #          echo "Entities JSON: ${{ env.entities }}"
@@ -45,4 +46,4 @@ jobs:
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: BULK_UPSERT
-          entities: entities.json
+          entities: ${{ fromJSON(steps.port-parse.outputs.json_data) }}
