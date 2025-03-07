@@ -16,7 +16,7 @@ jobs:
           path: 'K8s/helm'
           ignore_on_exit: results
           output_path: myResults/
-#      - name: display kics results
+#      - name: display kics result
 #        run: | 
 #          cat myResults/results.json
       - name: Checkout tools repo
